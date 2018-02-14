@@ -32,18 +32,6 @@ const getChecksum = (data) =>
     )
     .reduce((sum, v) => Number(sum) + Number(v));
 
-
-const getResultIfDivisible = (value, array) => {
-    return array.map(v => 
-        value !== v && value % v === 0 ?
-        value/v :
-        ''        
-    )
-    .filter(v => v);
-}
-
-
-
 console.log(
     getChecksum(input)
 );
