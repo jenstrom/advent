@@ -20,22 +20,29 @@ const input = `
 const getChecksum = (data) => 
     data
     .split('\n')
-    .filter(a => a)
-    .map(a => 
-        a.split('\t'))
-    .map(a => 
-        a.filter(v => 
-            a.some(v2 => 
-                v !== v2 && (
-                    v % v2 === 0 ||
-                    v2 % v === 0 
-                )
-            )
+    .filter(r => r)
+    .map(r => 
+        r.split('\t'))
+    .map(r => 
+        r.map(v => r
+            .map(v2 => v !== v2 && v % v2 === 0 ? v/v2 : 0)
+            .filter(num => num)
         )
-        .sort((a,b) => b - a)
+       .reduce((sum, v) => sum + v)
     )
-    .map(a => a[0] / a[1])
-    .reduce((sum, v) => sum + v);
+    .reduce((sum, v) => Number(sum) + Number(v));
+
+
+const getResultIfDivisible = (value, array) => {
+    return array.map(v => 
+        value !== v && value % v === 0 ?
+        value/v :
+        ''        
+    )
+    .filter(v => v);
+}
+
+
 
 console.log(
     getChecksum(input)
